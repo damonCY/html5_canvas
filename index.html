@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+	<style>
+		#img_one{
+			height: 300px;
+			width: 300px;
+		}
+		#canvas{
+			border: 1px solid red;
+		}
+		#img_content{
+			height: 300px;
+			width: 300px;
+			border: 1px solid green;
+		}
+	</style>
+</head>
+<body>
+	<img src="img/one.jpg" alt="" id="img_one"/>
+	<canvas height="300" width="300" id="canvas"></canvas>
+	<div id="img_content"></div>
+</body>
+<script>
+window.onload=function(){
+	drawImage();  
+	function drawImage(callback){
+		var img=document.querySelector('#img_one');
+		var canvas=document.querySelector('#canvas');
+		var css_img=document.defaultView.getComputedStyle(img,null);
+		var c_width=parseInt(css_img.width);
+		var c_height=parseInt(css_img.height);
+		var cxt=canvas.getContext('2d');
+			img.onload=function(){
+				var canvass=cxt.drawImage(img,0,0,c_width,c_height);
+				callback(canvas);
+			}
+	}
+	
+	canvas_to_img(70);
+	function canvas_to_img(number){
+		var content=document.querySelector('#img_content');
+		var imgType='image/jpeg';
+		var numbers=number/100;
+		drawImage(function(canvas){
+			var data=canvas.toDataURL(imgType,numbers);
+		    var img=new Image();
+		    	img.src=data;
+		    	img.onload=function(){
+		    		content.appendChild(img);
+		    	}
+		})
+	}
+}
+	
+	
+</script>
+</html>
