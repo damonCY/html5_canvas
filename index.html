@@ -34,7 +34,7 @@
 		var cxt=canvas.getContext('2d');
 			img.onload=function(){
 				var canvass=cxt.drawImage(img,0,0,c_width,c_height);
-				callback(canvas);
+				 callback && callback(canvas);
 			}
 	}
 	
